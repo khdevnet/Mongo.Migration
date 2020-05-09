@@ -72,6 +72,18 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
+`**PLEASE NOTE**` 
+When you use "VersionFieldName" you also should mark Version field with BsonElement attribute, look example below, 
+this will enable version setup on document Insert/Update, in other case field will be ignored.
+
+```csharp
+    public class Car : IDocument
+    {
+        [BsonElement("TestVersionName")]
+        public DocumentVersion Version { get; set; }
+    }
+```
+
     
 2. Implement `IDocument` or add `Document` to your entities to provide the `DocumentVersion`. (Optional) Add the `RuntimeVersion` attribute to mark the current version of the document. So you have the possibility to downgrade in case of a rollback.
 
